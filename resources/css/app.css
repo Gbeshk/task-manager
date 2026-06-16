@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+
+@theme {
+  --font-sans: 'Helvetica', 'Arial', sans-serif;
+}input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #F6F8FA inset;
+  -webkit-text-fill-color: #2F363D;
+  transition: background-color 5000s ease-in-out 0s;
+}
