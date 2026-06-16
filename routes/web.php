@@ -14,5 +14,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 	Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
 	Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+	Route::get('/tasks/due', [TaskController::class, 'due'])->name('tasks.due');
+	Route::delete('/tasks/old', [TaskController::class, 'destroyOld'])->name('tasks.destroyOld');
 	Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });

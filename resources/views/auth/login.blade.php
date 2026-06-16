@@ -19,7 +19,7 @@
                     <x-auth.password-input name="password" label="Password" placeholder="Write your password"
                         autocomplete="current-password" />
                     <button type="submit"
-                        class="w-115.5 h-19.5 mt-6 rounded-xl bg-[#499AF9] flex items-center justify-center text-white font-[Helvetica] text-base">
+                        class="w-115.5 h-19.5 cursor-pointer hover:bg-[#3386E7] transition-all duration-300 ease-in-out mt-6 rounded-xl font-bold text-base leading-4 tracking-normal text-center uppercase bg-[#499AF9] flex items-center justify-center text-white">
                         Log in
                     </button>
                 </form>

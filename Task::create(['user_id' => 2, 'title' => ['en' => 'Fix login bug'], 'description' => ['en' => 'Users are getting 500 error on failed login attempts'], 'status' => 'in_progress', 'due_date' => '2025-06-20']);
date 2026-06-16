@@ -1,0 +1,10 @@
+[90m= [39m[34;4mApp\Models\Task[39;24m {#7999
+    [34muser_id[39m: [35m2[39m,
+    [34mtitle[39m: [32m"[39m[32m{[39m\"[32men[39m\"[32m:[39m\"[32mBuy groceries[39m\"[32m}[39m[32m"[39m,
+    [34mdescription[39m: [32m"[39m[32m{[39m\"[32men[39m\"[32m:[39m\"[32mMilk, eggs, bread, and some fruits from the supermarket[39m\"[32m}[39m[32m"[39m,
+    [34mstatus[39m: [32m"[39m[32mpending[39m[32m"[39m,
+    [34mdue_date[39m: [32m"[39m[32m2025-07-01 00:00:00[39m[32m"[39m,
+    [34mupdated_at[39m: [32m"[39m[32m2026-06-16 17:47:22[39m[32m"[39m,
+    [34mcreated_at[39m: [32m"[39m[32m2026-06-16 17:47:22[39m[32m"[39m,
+    [34mid[39m: [35m25[39m,
+  }
