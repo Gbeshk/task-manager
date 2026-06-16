@@ -12,7 +12,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit"
-                            class="w-51.75 h-12 flex items-center justify-center border border-[#499AF9] rounded-xl cursor-pointer font-bold text-base leading-none uppercase text-[#499AF9] tracking-normal">
+                            class="w-51.75 h-12 flex items-center transition-all duration-300 ease-in-out hover:bg-[#499AF914] justify-center border border-[#499AF9] rounded-xl cursor-pointer font-bold text-base leading-none uppercase text-[#499AF9] tracking-normal">
                             Delete old tasks
                         </button>
                     </form>
