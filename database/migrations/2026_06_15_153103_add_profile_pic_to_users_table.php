@@ -8,14 +8,14 @@ return new class() extends Migration {
 	public function up(): void
 	{
 		Schema::table('users', function (Blueprint $table) {
-			$table->string('profile_pic')->nullable()->after('email');
+			$table->string('profile_picture')->nullable()->after('email');
 		});
 	}
 
 	public function down(): void
 	{
 		Schema::table('users', function (Blueprint $table) {
-			$table->dropColumn('profile_pic');
+			$table->dropColumn('profile_picture');
 		});
 	}
 };

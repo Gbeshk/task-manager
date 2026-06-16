@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-	public function login(LoginRequest $request)
+	public function showLogin(): View
+	{
+		return view('auth.login');
+	}
+
+	public function login(LoginRequest $request): RedirectResponse
 	{
 		if (!Auth::attempt($request->validated(), $request->boolean('remember'))) {
 			throw ValidationException::withMessages([
@@ -18,6 +25,6 @@ class AuthController extends Controller
 
 		$request->session()->regenerate();
 
-		return redirect()->intended('/dashboard');
+		return redirect()->intended(route('dashboard'));
 	}
 }
