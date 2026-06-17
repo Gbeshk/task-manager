@@ -8,7 +8,7 @@
                     Your tasks
                 </p>
                 <div class='flex items-center gap-4'>
-                    <form action="{{ route('tasks.destroyOld') }}" method="POST">
+                    <form action="{{ route('tasks.destroy-old') }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -37,8 +37,8 @@
                         </p>
                     @endforelse
                 </div>
+                <x-dashboard.pagination {{ $tasks->links() }} />
 
-                <x-dashboard.pagination :tasks="$tasks" />
             </div>
         </div>
     </div>

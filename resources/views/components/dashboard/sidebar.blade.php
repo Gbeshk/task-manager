@@ -7,7 +7,7 @@
                 alt="Profile Photo" class="w-full h-full object-cover">
         </div>
         <div class='mt-28 flex flex-col gap-9'>
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
+            <a href="{{ route('tasks.index') }}" class="flex items-center gap-2">
                 <x-icons.tasks-icon />
                 <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>My tasks</p>
             </a>

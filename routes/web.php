@@ -12,10 +12,13 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-	Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
+	Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 	Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-	Route::get('/tasks/due', [TaskController::class, 'due'])->name('tasks.due');
-	Route::delete('/tasks/old', [TaskController::class, 'destroyOld'])->name('tasks.destroyOld');
-	Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
-	Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+
+	Route::prefix('tasks')->name('tasks.')->group(function () {
+		Route::get('/due', [TaskController::class, 'due'])->name('due');
+		Route::delete('/old', [TaskController::class, 'destroyDue'])->name('destroy-old');
+		Route::delete('/{task}', [TaskController::class, 'destroy'])->name('destroy');
+		Route::get('/{task}', [TaskController::class, 'show'])->name('show');
+	});
 });

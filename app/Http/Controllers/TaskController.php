@@ -24,12 +24,28 @@ class TaskController extends Controller
 		return $query;
 	}
 
+	private function renderTaskList(bool $onlyDue = false): View
+	{
+		$query = auth()->user()->tasks();
+
+		if ($onlyDue) {
+			$query->whereDate('due_date', '<=', today());
+		}
+
+		$tasks = $this->applySorting($query)->paginate(8);
+
+		return view('tasks.index', compact('tasks'))
+			->with(['sortBy' => request('sort'), 'sortDir' => request('dir')]);
+	}
+
 	public function index(): View
 	{
-		$tasks = $this->applySorting(auth()->user()->tasks())->paginate(8);
+		return $this->renderTaskList();
+	}
 
-		return view('dashboard', compact('tasks'))
-			->with(['sortBy' => request('sort'), 'sortDir' => request('dir')]);
+	public function due(): View
+	{
+		return $this->renderTaskList(onlyDue: true);
 	}
 
 	public function destroy(Task $task): RedirectResponse
@@ -40,27 +56,19 @@ class TaskController extends Controller
 		return back();
 	}
 
-	public function destroyOld(): RedirectResponse
+	public function destroyDue(): RedirectResponse
 	{
 		auth()->user()->tasks()
-			->whereDate('due_date', '<', today())
+			->whereDate('due_date', '<=', today())
 			->delete();
 
 		return back();
 	}
 
-	public function due(): View
-	{
-		$tasks = $this->applySorting(
-			auth()->user()->tasks()->whereDate('due_date', '<', today())
-		)->paginate(8);
-
-		return view('dashboard', compact('tasks'))
-			->with(['sortBy' => request('sort'), 'sortDir' => request('dir')]);
-	}
-
 	public function show(Task $task): View
 	{
+		abort_if($task->user_id !== auth()->id(), 403);
+
 		return view('tasks.show', compact('task'));
 	}
 }

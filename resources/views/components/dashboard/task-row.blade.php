@@ -9,11 +9,11 @@
         {{ $task->description }}
     </p>
     <p class='h-16 pl-6 flex items-center text-[#6A737D] font-normal text-lg leading-none tracking-normal'>
-        {{ $task->created_at ? \Carbon\Carbon::parse($task->created_at)->format('d/m/Y') : '—' }}
+        {{ $task->created_at ? $task->created_at->format('d/m/Y') : '—' }}
     </p>
     <p
-        class='h-16 pl-6 flex items-center font-normal text-lg leading-none tracking-normal {{ $task->due_date && \Carbon\Carbon::parse($task->due_date)->isPast() ? 'text-[#E91818]' : 'text-[#6A737D]' }}'>
-        {{ $task->due_date ? \Carbon\Carbon::parse($task->due_date)->format('d/m/Y') : '—' }}
+        class='h-16 pl-6 flex items-center font-normal text-lg leading-none tracking-normal {{ $task->due_date && $task->due_date->isPast() ? 'text-[#E91818]' : 'text-[#6A737D]' }}'>
+        {{ $task->due_date ? $task->due_date->format('d/m/Y') : '—' }}
     </p>
     <div class='h-16 pl-6 flex items-center gap-7.5'>
         <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
