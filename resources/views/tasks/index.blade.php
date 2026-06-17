@@ -38,7 +38,7 @@
                     @endforelse
                 </div>
 
-                <x-dashboard.pagination :tasks="$tasks" />
+                <x-dashboard.pagination {{ $tasks->links() }} />
             </div>
         </div>
     </div>
