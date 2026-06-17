@@ -3,8 +3,8 @@
         <x-dashboard.sidebar />
 
         <div class="w-289.25">
-            <div class='flex mt-25 justify-between items-center'>
-                <p class='ml-10 font-bold text-3xl leading-none uppercase text-[#2F363D] tracking-normal'>
+            <div class='flex mt-24 justify-between items-center'>
+                <p class='ml-10 mt-4.5 font-bold text-3xl leading-none uppercase text-[#2F363D] tracking-normal'>
                     Your tasks
                 </p>
                 <div class='flex items-center gap-4'>

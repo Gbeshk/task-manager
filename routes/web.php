@@ -17,4 +17,5 @@ Route::middleware('auth')->group(function () {
 	Route::get('/tasks/due', [TaskController::class, 'due'])->name('tasks.due');
 	Route::delete('/tasks/old', [TaskController::class, 'destroyOld'])->name('tasks.destroyOld');
 	Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+	Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 });

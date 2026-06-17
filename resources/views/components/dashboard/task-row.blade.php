@@ -26,7 +26,9 @@
         </form>
         <button
             class="font-normal text-base leading-4 cursor-pointer tracking-normal underline decoration-solid">Edit</button>
-        <button
-            class="font-normal text-base leading-4 cursor-pointer tracking-normal underline decoration-solid">Show</button>
+        <a href="{{ route('tasks.show', $task->id) }}"
+            class="font-normal text-base leading-4 cursor-pointer tracking-normal underline decoration-solid">
+            Show
+        </a>
     </div>
 </div>
