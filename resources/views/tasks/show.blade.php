@@ -8,10 +8,10 @@
                     {{ $task->title }}
                 </p>
                 <div class='flex items-center gap-4 shrink-0'>
-                    <button type="submit"
+                    <a href="{{ route('tasks.edit', $task->id) }}"
                         class="w-42 h-12 flex gap-3.5 items-center transition-all duration-300 ease-in-out hover:bg-[#499AF914] justify-center border border-[#499AF9] rounded-xl cursor-pointer font-bold text-base leading-none uppercase text-[#499AF9] tracking-normal">
                         <x-icons.edit-task-icon /> Edit task
-                    </button>
+                    </a>
                 </div>
             </div>
             <p class="text-base leading-4 tracking-normal text-[#6A737D] mt-21.5 ml-10">Description</p>

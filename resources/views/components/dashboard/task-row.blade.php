@@ -24,8 +24,8 @@
                 Delete
             </button>
         </form>
-        <button
-            class="font-normal text-base leading-4 cursor-pointer tracking-normal underline decoration-solid">Edit</button>
+        <a href="{{ route('tasks.edit', $task->id) }}"
+            class="font-normal text-base leading-4 cursor-pointer tracking-normal underline decoration-solid">Edit</a>
         <a href="{{ route('tasks.show', $task->id) }}"
             class="font-normal text-base leading-4 cursor-pointer tracking-normal underline decoration-solid">
             Show
