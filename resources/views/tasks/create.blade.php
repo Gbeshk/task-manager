@@ -7,7 +7,7 @@
             </h1>
             <form method="POST" action="{{ route('tasks.store') }}" class="mt-4 flex flex-col items-center">
                 @csrf
-                @include('tasks.form', ['task' => new App\Models\Task()])
+                @include('tasks.form')
                 <button type="submit"
                     class="mt-6 w-115.5 h-17 hover:bg-[#3386E7] transition-all duration-300 ease-in-out cursor-pointer rounded-xl bg-[#499AF9] text-white font-bold text-base leading-4 tracking-normal text-center uppercase">
                     Create Task

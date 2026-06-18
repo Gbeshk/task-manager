@@ -6,10 +6,12 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
+	use AuthorizesRequests;
+
 	public function index(): View
 	{
 		return $this->renderTaskList();
@@ -27,50 +29,50 @@ class TaskController extends Controller
 
 	public function store(StoreTaskRequest $request): RedirectResponse
 	{
-		$task = auth()->user()->tasks()->make([
-			'status'   => 'pending',
-			'due_date' => $request->input('due_date'),
+		$task = auth()->user()->tasks()->create([
+			'status'      => 'pending',
+			'due_date'    => $request->input('due_date'),
+			'title'       => $request->input('title'),
+			'description' => $request->input('description'),
 		]);
-
-		$this->applyTranslations($task, $request);
-		$task->save();
 
 		return redirect()->route('tasks.show', $task);
 	}
 
 	public function show(Task $task): View
 	{
-		Gate::authorize('owns', $task);
+		$this->authorize('view', $task);
 		return view('tasks.show', compact('task'));
 	}
 
 	public function edit(Task $task): View
 	{
-		Gate::authorize('owns', $task);
+		$this->authorize('update', $task);
 		return view('tasks.edit', compact('task'));
 	}
 
 	public function update(StoreTaskRequest $request, Task $task): RedirectResponse
 	{
-		Gate::authorize('owns', $task);
+		$this->authorize('update', $task);
 
-		$task->update(['due_date' => $request->input('due_date')]);
-		$this->applyTranslations($task, $request);
-		$task->save();
+		$task->update([
+			'due_date'    => $request->input('due_date'),
+			'title'       => $request->input('title'),
+			'description' => $request->input('description'),
+		]);
 
 		return redirect()->route('tasks.show', $task);
 	}
 
 	public function destroy(Task $task): RedirectResponse
 	{
-		Gate::authorize('owns', $task);
+		$this->authorize('delete', $task);
 		$task->delete();
 		return back();
 	}
 
 	public function destroyDue(): RedirectResponse
 	{
-
 		auth()->user()->tasks()
 			->whereDate('due_date', '<=', today())
 			->delete();
@@ -98,18 +100,5 @@ class TaskController extends Controller
 
 		return view('tasks.index', compact('tasks'))
 			->with(['sortBy' => $sortBy, 'sortDir' => $sortDir]);
-	}
-
-	private function applyTranslations(Task $task, StoreTaskRequest $request): void
-	{
-		$task->setTranslations('title', [
-			'en' => $request->input('title_en'),
-			'ka' => $request->input('title_ka'),
-		]);
-
-		$task->setTranslations('description', [
-			'en' => $request->input('description_en', ''),
-			'ka' => $request->input('description_ka', ''),
-		]);
 	}
 }
