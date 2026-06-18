@@ -29,9 +29,10 @@ class TaskController extends Controller
 
 	public function store(StoreTaskRequest $request): RedirectResponse
 	{
-		$task = auth()->user()->tasks()->create([
-			'status'      => 'pending',
-			'due_date'    => $request->input('due_date'),
+		$dueDate = \DateTime::createFromFormat('y/m/d', $request->input('due_date'))->format('Y-m-d');
+		$task = Task::create([
+			'user_id'     => auth()->id(),
+			'due_date'    => $dueDate,
 			'title'       => $request->input('title'),
 			'description' => $request->input('description'),
 		]);
@@ -53,10 +54,12 @@ class TaskController extends Controller
 
 	public function update(StoreTaskRequest $request, Task $task): RedirectResponse
 	{
+
 		$this->authorize('update', $task);
+		$dueDate = \DateTime::createFromFormat('y/m/d', $request->input('due_date'))->format('Y-m-d');
 
 		$task->update([
-			'due_date'    => $request->input('due_date'),
+			'due_date'    => $dueDate,
 			'title'       => $request->input('title'),
 			'description' => $request->input('description'),
 		]);
