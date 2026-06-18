@@ -15,4 +15,4 @@
     mt="mt-6" />
 
 <x-auth.date-input name="due_date" label="Due date"
-    value="{{ old('due_date', $task?->due_date?->format('d/m/y') ?? '') }}" />
+    value="{{ old('due_date', $task?->due_date?->format('Y-m-d') ?? '') }}" />

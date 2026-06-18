@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/login');
+Route::redirect('/', '/tasks');
 
 Route::middleware('guest')->group(function () {
 	Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

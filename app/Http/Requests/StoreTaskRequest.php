@@ -21,7 +21,7 @@ class StoreTaskRequest extends FormRequest
             'title.ka'       => ['required', 'string', 'min:3', 'max:255', 'regex:' . $georgianOnly],
             'description.en' => ['required', 'string', 'min:3', 'regex:' . $englishOnly],
             'description.ka' => ['required', 'string', 'min:3', 'regex:' . $georgianOnly],
-            'due_date'       => ['required', 'date_format:d/m/y'],
+            'due_date'       => ['required', 'date', 'after:today'],
         ];
     }
 
@@ -41,7 +41,8 @@ class StoreTaskRequest extends FormRequest
             'description.ka.min'      => 'Georgian description must be at least 3 characters.',
             'description.ka.regex'    => 'Georgian description must only contain Georgian characters.',
             'due_date.required'       => 'Due date is required.',
-            'due_date.date_format'    => 'Due date must be in DD/MM/YY format.',
+            'due_date.date'           => 'Please enter a valid date.',
+            'due_date.after'    => 'The due date must be a date in the future.',
         ];
     }
 }
