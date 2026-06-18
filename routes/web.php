@@ -17,8 +17,10 @@ Route::middleware('auth')->group(function () {
 	Route::prefix('tasks')->name('tasks.')->group(function () {
 		Route::get('/', [TaskController::class, 'index'])->name('index');
 		Route::get('/due', [TaskController::class, 'due'])->name('due');
+		Route::get('/create', [TaskController::class, 'create'])->name('create');
+		Route::post('/', [TaskController::class, 'store'])->name('store');
 		Route::delete('/old', [TaskController::class, 'destroyDue'])->name('destroy-due');
-		Route::delete('/{task}', [TaskController::class, 'destroy'])->name('destroy');
 		Route::get('/{task}', [TaskController::class, 'show'])->name('show');
+		Route::delete('/{task}', [TaskController::class, 'destroy'])->name('destroy');
 	});
 });

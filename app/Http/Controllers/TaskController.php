@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,6 +49,32 @@ class TaskController extends Controller
 	{
 		return $this->renderTaskList(onlyDue: true);
 	}
+	public function create(): View
+	{
+		return view('tasks.create');
+	}
+	public function store(StoreTaskRequest $request): RedirectResponse
+	{
+		$task = auth()->user()->tasks()->make([
+			'status'   => 'pending',
+			'due_date' => $request->input('due_date'),
+		]);
+
+		$task->setTranslations('title', [
+			'en' => $request->input('title_en'),
+			'ka' => $request->input('title_ka'),
+		]);
+
+		$task->setTranslations('description', [
+			'en' => $request->input('description_en', ''),
+			'ka' => $request->input('description_ka', ''),
+		]);
+
+		$task->save();
+
+		return redirect()->route('tasks.show', $task);
+	}
+
 
 	public function destroy(Task $task): RedirectResponse
 	{
