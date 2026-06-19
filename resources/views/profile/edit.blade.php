@@ -9,29 +9,34 @@
                 <x-auth.input name="email" height="h-17.5" label="Email" value="{{ auth()->user()->email }}"
                     :readonly="true" :muted="true" />
             </div>
-            <h2 class='font-normal text-base mt-16 leading-4 tracking-normal text-center uppercase text-[#2F363D]'>Change
-                password</h2>
+            <h2 class='font-normal text-base mt-16 leading-4 tracking-normal text-center uppercase text-[#2F363D]'>
+                Change password
+            </h2>
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data"
                 class="mt-4 flex flex-col items-center">
                 @csrf
                 @method('PUT')
 
-                <x-auth.input name="current_password" label="Current Password" type="password"
-                    placeholder="Enter current password" height="h-19.5" mt="mt-6" />
-                <x-auth.input name="new_password" label="New Password" type="password" placeholder="Enter new password"
-                    height="h-19.5" mt="mt-6" />
-                <x-auth.input name="new_password_confirmation" label="Retype New Password" type="password"
-                    height="h-19.5" placeholder="Retype new password" mt="mt-6" />
+                <x-auth.password-input name="current_password" label="Current Password"
+                    placeholder="Enter current password" autocomplete="current-password" />
+
+                <x-auth.password-input name="new_password" label="New Password" placeholder="Enter new password"
+                    autocomplete="new-password" />
+
+                <x-auth.password-input name="new_password_confirmation" label="Retype New Password"
+                    placeholder="Retype new password" autocomplete="new-password" />
 
                 <h2 class='font-normal text-base mt-16 leading-4 tracking-normal text-center uppercase text-[#2F363D]'>
-                    Change Photos</h2>
+                    Change Photos
+                </h2>
 
                 <div x-data="{
                     profileSrc: '{{ auth()->user()->profile_picture ? Storage::url(auth()->user()->profile_picture) : asset('images/default-avatar.png') }}',
                     coverSrc: '{{ auth()->user()->cover_picture ? Storage::url(auth()->user()->cover_picture) : asset('images/defaultCover.png') }}',
                     defaultProfile: '{{ asset('images/default-avatar.png') }}',
                     defaultCover: '{{ asset('images/defaultCover.png') }}',
-                    shouldDeleteProfile: false,
+                    shouldDeleteProfile: {{ old('delete_profile_picture', '0') === '1' ? 'true' : 'false' }},
+                    shouldDeleteCover: {{ old('delete_cover_picture', '0') === '1' ? 'true' : 'false' }},
                     uploadProfile(e) {
                         const file = e.target.files[0];
                         if (!file) return;
@@ -47,18 +52,22 @@
                         const file = e.target.files[0];
                         if (!file) return;
                         this.coverSrc = URL.createObjectURL(file);
+                        this.shouldDeleteCover = false;
                     },
                     deleteCover() {
                         this.coverSrc = this.defaultCover;
                         this.$refs.coverInput.value = '';
+                        this.shouldDeleteCover = true;
                     }
                 }">
                     <input type="hidden" name="delete_profile_picture" :value="shouldDeleteProfile ? '1' : '0'" />
+                    <input type="hidden" name="delete_cover_picture" :value="shouldDeleteCover ? '1' : '0'" />
+
                     <div class='flex items-center mt-10 ml-31.5'>
                         <div class='w-31 h-31 ml-2 rounded-full overflow-hidden bg-gray-200'>
                             <img :src="profileSrc" class="w-full h-full object-cover" alt="Profile picture" />
                         </div>
-                        <input type="file" name="profile_picture" accept="image/*" class="hidden"
+                        <input type="file" name="profile_picture" accept="image/*,image/svg+xml" class="hidden"
                             x-ref="profileInput" @change="uploadProfile($event)" />
                         <button type="button" @click="$refs.profileInput.click()"
                             class='border border-[#499AF9] cursor-pointer rounded-2xl w-68 h-15 ml-5.5 flex items-center justify-center gap-3 text-[#499AF9] font-bold text-base leading-4 tracking-normal text-center uppercase'>
@@ -75,8 +84,8 @@
                         <div class='w-31 h-31 ml-2 rounded-l-2xl overflow-hidden bg-gray-200'>
                             <img :src="coverSrc" class="w-full h-full object-cover" alt="Cover picture" />
                         </div>
-                        <input type="file" accept="image/*" class="hidden" x-ref="coverInput"
-                            @change="uploadCover($event)" />
+                        <input type="file" name="cover_picture" accept="image/*,image/svg+xml" class="hidden"
+                            x-ref="coverInput" @change="uploadCover($event)" />
                         <button type="button" @click="$refs.coverInput.click()"
                             class='border border-[#499AF9] cursor-pointer rounded-2xl w-65 h-15 ml-5.5 flex items-center justify-center gap-3 text-[#499AF9] font-bold text-base leading-4 tracking-normal text-center uppercase'>
                             <x-icons.upload-picture-icon />
@@ -93,7 +102,6 @@
                     class="mt-20 mb-10 w-115.5 h-17.5 hover:bg-[#3386E7] transition-all duration-300 ease-in-out cursor-pointer rounded-xl bg-[#499AF9] text-white font-bold text-base leading-4 tracking-normal text-center uppercase">
                     Change
                 </button>
-
             </form>
         </div>
     </div>

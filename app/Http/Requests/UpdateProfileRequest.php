@@ -10,14 +10,15 @@ class UpdateProfileRequest extends FormRequest
     {
         return true;
     }
+
     public function rules(): array
     {
         return [
             'delete_profile_picture'    => ['nullable', 'boolean'],
+            'current_password'          => ['nullable', 'string'],
+            'new_password'              => ['nullable', 'string'],
             'new_password_confirmation' => ['nullable', 'string'],
-            'current_password' => ['nullable', 'required_with:new_password'],
-            'new_password'     => ['nullable', 'min:3', 'confirmed', 'different:current_password'],
-            'profile_picture'  => ['nullable', 'image', 'max:2048'],
+            'profile_picture'           => ['nullable', 'mimes:jpeg,jpg,png,gif,webp,svg', 'max:2048'],
         ];
     }
 }
