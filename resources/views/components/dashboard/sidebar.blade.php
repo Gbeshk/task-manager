@@ -1,11 +1,11 @@
 <div class='w-44 shrink-0 h-236 bg-[#F6F8FA] rounded-xl flex flex-col items-center justify-between'>
     <div class="flex flex-col items-center">
-        <div class="w-16 h-16 mt-6 rounded-full overflow-hidden">
+        <a href="{{ route('profile.edit') }}" class="w-16 h-16 mt-6 rounded-full overflow-hidden">
             <img src="{{ auth()->user()->profile_picture
                 ? asset('storage/' . auth()->user()->profile_picture)
                 : asset('images/default-avatar.png') }}"
                 alt="Profile Photo" class="w-full h-full object-cover">
-        </div>
+        </a>
         <div class='mt-28 flex flex-col gap-9'>
             <a href="{{ route('tasks.index') }}" class="flex items-center gap-2">
                 <x-icons.tasks-icon />

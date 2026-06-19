@@ -19,68 +19,86 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $anyPasswordFilled = $request->filled('current_password')
-            || $request->filled('new_password')
-            || $request->filled('new_password_confirmation');
+        if ($this->isAttemptingPasswordChange($request)) {
+            $error = $this->validatePasswordChange($request, $user);
 
-        if ($anyPasswordFilled) {
-
-            if (!$request->filled('current_password')) {
-                return back()->withErrors([
-                    'current_password' => 'Please enter your current password',
-                ]);
-            }
-
-            if (!Hash::check($request->current_password, $user->password)) {
-                return back()->withErrors([
-                    'current_password' => 'Current password is incorrect',
-                ]);
-            }
-
-            if (!$request->filled('new_password')) {
-                return back()->withErrors([
-                    'new_password'              => 'Please enter a new password',
-                    'new_password_confirmation' => 'Please enter a new password',
-                ]);
-            }
-
-            if (strlen($request->new_password) < 3) {
-                return back()->withErrors([
-                    'new_password'              => 'Password must be at least 3 characters',
-                    'new_password_confirmation' => 'Password must be at least 3 characters',
-                ]);
-            }
-
-            if (Hash::check($request->new_password, $user->password)) {
-                return back()->withErrors([
-                    'new_password'              => 'New password must be different from current password',
-                    'new_password_confirmation' => 'New password must be different from current password',
-                ]);
-            }
-
-            if ($request->new_password !== $request->new_password_confirmation) {
-                return back()->withErrors([
-                    'new_password'              => 'Passwords do not match',
-                    'new_password_confirmation' => 'Passwords do not match',
-                ]);
+            if ($error) {
+                return back()->withInput()->withErrors($error);
             }
 
             $user->update(['password' => Hash::make($request->new_password)]);
         }
 
+        $this->handleProfilePicture($request, $user);
+
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
+    }
+
+    private function isAttemptingPasswordChange(UpdateProfileRequest $request): bool
+    {
+        return $request->filled('current_password')
+            || $request->filled('new_password')
+            || $request->filled('new_password_confirmation');
+    }
+    private function validatePasswordChange(UpdateProfileRequest $request, $user): ?array
+    {
+        $msg = $request->passwordErrors();
+
+        if (!$request->filled('current_password')) {
+            return ['current_password' => $msg['current_missing']];
+        }
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return ['current_password' => $msg['current_incorrect']];
+        }
+
+        if (!$request->filled('new_password')) {
+            return [
+                'new_password'              => $msg['new_missing'],
+                'new_password_confirmation' => ' ',
+            ];
+        }
+
+        if (strlen($request->new_password) < 3) {
+            return [
+                'new_password'              => $msg['new_too_short'],
+                'new_password_confirmation' => ' ',
+            ];
+        }
+
+        if (Hash::check($request->new_password, $user->password)) {
+            return [
+                'new_password'              => $msg['new_same'],
+                'new_password_confirmation' => ' ',
+            ];
+        }
+
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return [
+                'new_password'              => ' ',
+                'new_password_confirmation' => $msg['no_match'],
+            ];
+        }
+
+        return null;
+    }
+
+    private function handleProfilePicture(UpdateProfileRequest $request, $user): void
+    {
         if ($request->boolean('delete_profile_picture')) {
             if ($user->profile_picture) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
             $user->update(['profile_picture' => null]);
-        } elseif ($request->hasFile('profile_picture')) {
+            return;
+        }
+
+        if ($request->hasFile('profile_picture')) {
             if ($user->profile_picture) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->update(['profile_picture' => $path]);
         }
-
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
     }
 }

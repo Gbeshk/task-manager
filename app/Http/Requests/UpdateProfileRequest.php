@@ -21,4 +21,24 @@ class UpdateProfileRequest extends FormRequest
             'profile_picture'           => ['nullable', 'mimes:jpeg,jpg,png,gif,webp,svg', 'max:2048'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'profile_picture.mimes' => 'Profile picture must be an image',
+            'profile_picture.max'   => 'Profile picture must be less than 2MB',
+        ];
+    }
+
+    public function passwordErrors(): array
+    {
+        return [
+            'current_missing'   => 'Please enter your current password',
+            'current_incorrect' => 'Current password is incorrect',
+            'new_missing'       => 'Please enter a new password',
+            'new_too_short'     => 'Password must be at least 3 characters',
+            'new_same'          => 'New password must be different from current password',
+            'no_match'          => 'Passwords do not match',
+        ];
+    }
 }
