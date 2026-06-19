@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <x-ui.flash />
     {{ $slot }}
 </body>
 

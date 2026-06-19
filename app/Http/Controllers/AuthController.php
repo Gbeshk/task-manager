@@ -20,10 +20,10 @@ class AuthController extends Controller
 	{
 		if (!Auth::attempt($request->validated(), $request->boolean('remember'))) {
 			throw ValidationException::withMessages([
-				'email' => __('auth.failed'),
+				'email'    => ' ',
+				'password' => __('auth.failed'),
 			]);
 		}
-
 		$request->session()->regenerate();
 
 		return redirect()->intended(route('tasks.index'));
