@@ -16,11 +16,11 @@
                             Delete old tasks
                         </button>
                     </form>
-                    <button
+                    <a href="{{ route('tasks.create') }}"
                         class='flex items-center gap-3 w-41.5 h-12 bg-[#499AF9] justify-center rounded-xl cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#3386E7]'>
                         <x-icons.add-task-icon />
                         <p class="font-bold text-base leading-none uppercase text-white tracking-normal">Add task</p>
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                     @endforelse
                 </div>
 
-                <x-dashboard.pagination {{ $tasks->links() }} />
+                {{ $tasks->links() }}
             </div>
         </div>
     </div>

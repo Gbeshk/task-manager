@@ -12,7 +12,6 @@ return new class() extends Migration {
 			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
 			$table->json('title');
 			$table->json('description');
-			$table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
 			$table->date('due_date');
 			$table->timestamps();
 		});
