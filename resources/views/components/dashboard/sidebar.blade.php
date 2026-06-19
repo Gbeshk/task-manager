@@ -15,7 +15,7 @@
                 <x-icons.due-tasks-icon />
                 <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>Due tasks</p>
             </a>
-            <a href="/profile" class="flex items-center gap-2">
+            <a href="{{ route('profile.edit') }}" class="flex items-center gap-2">
                 <x-icons.profile-icon />
                 <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>Profile</p>
             </a>

@@ -14,7 +14,7 @@
                 </div>
                 <form action="{{ route('login.post') }}" method="POST" novalidate>
                     @csrf
-                    <x-auth.input name="email" label="E-mail" type="email" :value="old('email')"
+                    <x-auth.input name="email" label="E-mail" type="email" height='h-19.5' :value="old('email')"
                         placeholder="Write your email" autocomplete="email" mt="mt-14" />
                     <x-auth.password-input name="password" label="Password" placeholder="Write your password"
                         autocomplete="current-password" />
