@@ -1,8 +1,12 @@
+@use(App\Models\Setting)
+@use(Illuminate\Support\Facades\Storage)
+
 <x-layouts.app title="Login">
     <div class="mt-10">
         <div class="flex items-center justify-between w-315.5 mx-auto">
-            <div class="w-175 h-236 rounded-l-3xl">
-                <img src="/images/defaultCover.png" class="w-full h-full object-cover" alt="">
+            <div class="w-175 h-236 rounded-l-3xl overflow-hidden">
+                <img src="{{ Setting::get('cover_picture') ? Storage::url(Setting::get('cover_picture')) : asset('images/defaultCover.png') }}"
+                    class="w-full h-full object-cover rounded-l-3xl" alt="">
             </div>
             <div class="w-115.5">
                 <div class="items-center flex justify-between">

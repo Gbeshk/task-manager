@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +18,7 @@ class ProfileController extends Controller
 
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
+
         $user = auth()->user();
 
         if ($this->isAttemptingPasswordChange($request)) {
@@ -30,6 +32,8 @@ class ProfileController extends Controller
         }
 
         $this->handleProfilePicture($request, $user);
+        $this->handleProfilePicture($request, $user);
+        $this->handleCoverPicture($request);
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
     }
@@ -99,6 +103,26 @@ class ProfileController extends Controller
             }
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->update(['profile_picture' => $path]);
+        }
+    }
+    private function handleCoverPicture(UpdateProfileRequest $request): void
+    {
+        if ($request->boolean('delete_cover_picture')) {
+            $current = Setting::get('cover_picture');
+            if ($current) {
+                Storage::disk('public')->delete($current);
+            }
+            Setting::set('cover_picture', null);
+            return;
+        }
+
+        if ($request->hasFile('cover_picture')) {
+            $current = Setting::get('cover_picture');
+            if ($current) {
+                Storage::disk('public')->delete($current);
+            }
+            $path = $request->file('cover_picture')->store('cover_pictures', 'public');
+            Setting::set('cover_picture', $path);
         }
     }
 }

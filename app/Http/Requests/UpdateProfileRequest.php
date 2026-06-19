@@ -14,11 +14,13 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'delete_profile_picture'    => ['nullable', 'boolean'],
+            'delete_profile_picture' => ['nullable', 'boolean'],
+            'delete_cover_picture'   => ['nullable', 'boolean'],
             'current_password'          => ['nullable', 'string'],
             'new_password'              => ['nullable', 'string'],
             'new_password_confirmation' => ['nullable', 'string'],
-            'profile_picture'           => ['nullable', 'mimes:jpeg,jpg,png,gif,webp,svg', 'max:2048'],
+            'profile_picture' => ['nullable', 'mimes:jpeg,jpg,png,gif,webp,svg', 'max:2048'],
+            'cover_picture'   => ['nullable', 'mimes:jpeg,jpg,png,gif,webp,svg', 'max:2048'],
         ];
     }
 
@@ -27,6 +29,8 @@ class UpdateProfileRequest extends FormRequest
         return [
             'profile_picture.mimes' => 'Profile picture must be an image',
             'profile_picture.max'   => 'Profile picture must be less than 2MB',
+            'cover_picture.mimes'   => 'Cover picture must be an image',
+            'cover_picture.max'     => 'Cover picture must be less than 2MB',
         ];
     }
 
