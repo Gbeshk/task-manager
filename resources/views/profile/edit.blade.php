@@ -1,4 +1,3 @@
-@use(App\Models\Setting)
 <x-layouts.app title="Edit Profile">
     <div class='flex mt-10 gap-9 w-365 h-236 mx-auto'>
         <x-dashboard.sidebar />
@@ -22,9 +21,7 @@
 
                 <x-profile.photo-manager :profile-src="auth()->user()->profile_picture
                     ? Storage::url(auth()->user()->profile_picture)
-                    : asset('images/default-avatar.png')" :cover-src="Setting::get('cover_picture')
-                    ? Storage::url(Setting::get('cover_picture'))
-                    : asset('images/defaultCover.png')" :default-profile="asset('images/default-avatar.png')" :default-cover="asset('images/defaultCover.png')"
+                    : asset('images/default-avatar.png')" :cover-src="$coverSrc" :default-profile="asset('images/default-avatar.png')" :default-cover="asset('images/defaultCover.png')"
                     :delete-profile-old="old('delete_profile_picture', '0')" :delete-cover-old="old('delete_cover_picture', '0')" />
 
                 <button type="submit"
