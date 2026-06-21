@@ -30,5 +30,5 @@
     @enderror
 </div>
 @error($name)
-    <div class="h-6"></div>
+    <div class="{{ trim($message) !== '' ? 'h-6' : 'h-0' }}"></div>
 @enderror
