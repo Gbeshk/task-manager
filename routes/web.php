@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,11 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 	Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+	Route::prefix('profile')->name('profile.')->group(function () {
+		Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+		Route::put('/', [ProfileController::class, 'update'])->name('update');
+	});
 
 	Route::prefix('tasks')->name('tasks.')->group(function () {
 		Route::get('/', [TaskController::class, 'index'])->name('index');

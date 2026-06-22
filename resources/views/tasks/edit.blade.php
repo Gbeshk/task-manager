@@ -1,7 +1,11 @@
 <x-layouts.app title="Edit Task">
-    <div class='flex mt-10 gap-9 w-365 h-236 mx-auto'>
+    <div class='flex mt-10 gap-9 w-365 h-236 mx-auto relative'>
+        <p onclick="history.back()"
+            class="absolute flex left-91 top-16 items-center gap-4.5 cursor-pointer font-normal text-base leading-4 tracking-normal uppercase text-black">
+            <x-icons.arrow-left /> back
+        </p>
         <x-dashboard.sidebar />
-        <div class="w-289.25 flex items-center flex-col">
+        <div class="w-289.25 flex items-center flex-col ">
             <h1 class='font-bold text-3xl leading-4 tracking-normal text-center uppercase text-[#2F363D] mt-23'>
                 Edit Task
             </h1>
