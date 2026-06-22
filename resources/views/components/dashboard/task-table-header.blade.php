@@ -17,26 +17,26 @@
 <div class='grid grid-cols-[25fr_30fr_12fr_12fr_22fr] items-center'>
     <p
         class='h-20 pl-10 flex items-center text-black font-normal text-lg leading-none tracking-normal border-b border-[#E0E3E7]'>
-        Task name
+        {{ __('messages.task_name') }}
     </p>
     <p
         class='h-20 pl-6 flex items-center text-black font-normal text-lg leading-none tracking-normal border-b border-[#E0E3E7]'>
-        Description
+        {{ __('messages.description') }}
     </p>
     <p
         class='h-20 pl-6 flex items-center text-black font-normal text-lg leading-none tracking-normal gap-2 border-b border-[#E0E3E7]'>
         <a href="{{ $nextSortUrl('created_at') }}" class="flex items-center gap-2">
-            Created at <x-icons.sort-icon />
+            {{ __('messages.created_at') }} <x-icons.sort-icon />
         </a>
     </p>
     <p
         class='h-20 pl-6 flex items-center text-black font-normal text-lg leading-none tracking-normal gap-2 border-b border-[#E0E3E7]'>
         <a href="{{ $nextSortUrl('due_date') }}" class="flex items-center gap-2">
-            Due Date <x-icons.sort-icon />
+            {{ __('messages.due_date') }} <x-icons.sort-icon />
         </a>
     </p>
     <p
         class='h-20 pl-6 flex items-center text-black font-normal text-lg leading-none tracking-normal border-b border-[#E0E3E7]'>
-        Actions
+        {{ __('messages.actions') }}
     </p>
 </div>

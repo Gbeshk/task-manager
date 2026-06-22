@@ -1,7 +1,7 @@
 @props([
     'name' => 'password',
-    'label' => 'Password',
-    'placeholder' => 'Write your password',
+    'label' => __('messages.password'),
+    'placeholder' => __('messages.write_password'),
     'autocomplete' => 'current-password',
 ])
 <div x-data="{ hasError: {{ $errors->has($name) ? 'true' : 'false' }}, showError: {{ $errors->has($name) ? 'true' : 'false' }}, showPassword: false }">
@@ -24,7 +24,7 @@
 
         <button type="button" @click="showPassword = !showPassword"
             class="absolute right-6 top-1/2 -translate-y-1/2 focus:outline-none"
-            :aria-label="showPassword ? 'Hide password' : 'Show password'">
+            :aria-label="showPassword ? __('messages.hide_password') : __('messages.show_password')">
             <x-icons.eye-show x-show="showPassword" />
             <x-icons.eye-hide x-show="!showPassword" />
         </button>

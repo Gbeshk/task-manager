@@ -4,20 +4,23 @@
             <img src="{{ auth()->user()->profile_picture
                 ? asset('storage/' . auth()->user()->profile_picture)
                 : asset('images/default-avatar.png') }}"
-                alt="Profile Photo" class="w-full h-full object-cover">
+                alt="{{ __('messages.profile_photo') }}" class="w-full h-full object-cover">
         </a>
         <div class='mt-28 flex flex-col gap-9'>
             <a href="{{ route('tasks.index') }}" class="flex items-center gap-2">
                 <x-icons.tasks-icon />
-                <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>My tasks</p>
+                <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>{{ __('messages.my_tasks') }}
+                </p>
             </a>
             <a href="{{ route('tasks.due') }}" class="flex items-center gap-2">
                 <x-icons.due-tasks-icon />
-                <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>Due tasks</p>
+                <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>
+                    {{ __('messages.due_tasks') }}</p>
             </a>
             <a href="{{ route('profile.edit') }}" class="flex items-center gap-2">
                 <x-icons.profile-icon />
-                <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>Profile</p>
+                <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>{{ __('messages.profile') }}
+                </p>
             </a>
         </div>
     </div>
@@ -25,7 +28,8 @@
         @csrf
         <button type="submit" class="flex items-center gap-2 cursor-pointer">
             <x-icons.log-out-icon />
-            <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>Log out</p>
+            <p class='font-normal text-lg leading-none text-[#2F363D] tracking-normal'>{{ __('messages.log_out') }}</p>
         </button>
     </form>
+
 </div>

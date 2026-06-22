@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfileRequest extends FormRequest
@@ -38,24 +37,6 @@ class UpdateProfileRequest extends FormRequest
                 'confirmed',
             ],
             'new_password_confirmation' => ['nullable', 'string'],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'profile_picture.mimes' => 'Profile picture must be an image',
-            'profile_picture.max'   => 'Profile picture must be less than 2MB',
-            'cover_picture.mimes'   => 'Cover picture must be an image',
-            'cover_picture.max'     => 'Cover picture must be less than 2MB',
-
-            'current_password.required_with'    => 'Please enter your current password',
-            'current_password.current_password' => 'Current password is incorrect',
-
-            'new_password.required_with' => 'Please enter a new password',
-            'new_password.min'           => 'Password must be at least 3 characters',
-            'new_password.different'     => 'New password must be different from current password',
-            'new_password.confirmed'     => 'Passwords do not match',
         ];
     }
 }
