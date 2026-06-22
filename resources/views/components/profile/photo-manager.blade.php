@@ -8,7 +8,7 @@
 ])
 
 <h2 class='font-normal text-base mt-16 leading-4 tracking-normal text-center uppercase text-[#2F363D]'>
-    Change Photos
+    {{ __('messages.change_photos') }}
 </h2>
 
 <div x-data="{
@@ -45,9 +45,10 @@
     <input type="hidden" name="delete_profile_picture" :value="shouldDeleteProfile ? '1' : '0'" />
     <input type="hidden" name="delete_cover_picture" :value="shouldDeleteCover ? '1' : '0'" />
 
-    <x-profile.photo-row type="profile" label="Upload Profile" thumbnail-class="rounded-full" src-bind="profileSrc"
-        input-ref="profileInput" upload-method="uploadProfile($event)" delete-method="deleteProfile()" />
+    <x-profile.photo-row type="profile" label="{{ __('messages.upload_profile') }}" thumbnail-class="rounded-full"
+        src-bind="profileSrc" input-ref="profileInput" upload-method="uploadProfile($event)"
+        delete-method="deleteProfile()" />
 
-    <x-profile.photo-row type="cover" label="Upload Cover" thumbnail-class="rounded-l-2xl" src-bind="coverSrc"
-        input-ref="coverInput" upload-method="uploadCover($event)" delete-method="deleteCover()" />
+    <x-profile.photo-row type="cover" label="{{ __('messages.upload_cover') }}" thumbnail-class="rounded-l-2xl"
+        src-bind="coverSrc" input-ref="coverInput" upload-method="uploadCover($event)" delete-method="deleteCover()" />
 </div>

@@ -29,7 +29,7 @@ class AuthController extends Controller
 		if (!Auth::attempt($request->validated(), $request->boolean('remember'))) {
 			throw ValidationException::withMessages([
 				'email'    => ' ',
-				'password' => __('auth.failed'),
+				'password' => __('validation.failed_login'),
 			]);
 		}
 		$request->session()->regenerate();

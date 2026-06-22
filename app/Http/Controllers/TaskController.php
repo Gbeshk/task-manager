@@ -35,7 +35,7 @@ class TaskController extends Controller
 			'title'       => $request->input('title'),
 			'description' => $request->input('description'),
 		]);
-		return redirect()->route('tasks.show', $task)->with('success', 'Task created successfully');
+		return redirect()->route('tasks.show', $task)->with('success', __('messages.task_created_success'));
 	}
 
 	public function show(Task $task): View
@@ -59,14 +59,14 @@ class TaskController extends Controller
 			'title'       => $request->input('title'),
 			'description' => $request->input('description'),
 		]);
-		return redirect()->route('tasks.show', $task)->with('success', 'Task updated successfully');
+		return redirect()->route('tasks.show', $task)->with('success', __('messages.task_updated_success'));
 	}
 
 	public function destroy(Task $task): RedirectResponse
 	{
 		$this->authorize('delete', $task);
 		$task->delete();
-		return back()->with('success', 'Task deleted successfully');
+		return back()->with('success', __('messages.task_deleted_success'));
 	}
 
 	public function destroyDue(): RedirectResponse
@@ -74,7 +74,7 @@ class TaskController extends Controller
 		auth()->user()->tasks()
 			->whereDate('due_date', '<=', today())
 			->delete();
-		return back()->with('success', 'Old tasks deleted successfully');
+		return back()->with('success', __('messages.old_tasks_deleted_success'));
 	}
 
 	private function renderTaskList(bool $onlyDue = false): View

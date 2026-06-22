@@ -45,7 +45,7 @@ class ProfileController extends Controller
             fn($path) => Setting::set('cover_picture', $path)
         );
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully');
+        return redirect()->route('profile.edit')->with('success', __('messages.profile_updated_success'));
     }
 
 
