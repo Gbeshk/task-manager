@@ -16,7 +16,7 @@
     </button>
 
     <button type="button" @click="{{ $deleteMethod }}"
-        class='px-12 py-4.5  ml-1 flex items-center justify-center transition-all duration-300 ease-in-out font-bold text-base leading-4 tracking-normal text-center uppercase text-[#586069] hover:text-red-500 transition-colors cursor-pointer'>
+        class='px-12 py-4.5  ml-1 flex items-center justify-center duration-300 ease-in-out font-bold text-base leading-4 tracking-normal text-center uppercase text-[#586069] hover:text-red-500 transition-colors cursor-pointer'>
         {{ __('messages.delete_btn') }}
     </button>
 
