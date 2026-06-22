@@ -1,20 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/tasks');
-Route::get('/lang/{locale}', function (string $locale) {
-	if (! in_array($locale, ['en', 'ka'])) {
-		abort(400);
-	}
-
-	session(['locale' => $locale]);
-
-	return back();
-})->name('lang.switch');
+Route::get('/lang/{locale}', LanguageController::class)->name('lang.switch');
 
 Route::middleware('guest')->group(function () {
 	Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
