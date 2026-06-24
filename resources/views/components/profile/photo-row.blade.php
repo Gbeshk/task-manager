@@ -21,3 +21,8 @@
     </button>
 
 </div>
+@error($type . '_picture')
+    <p x-show="showError" class="mt-2 ml-31.5 text-[#E91818] text-xs font-normal leading-none pl-2">
+        {{ $message }}
+    </p>
+@enderror
