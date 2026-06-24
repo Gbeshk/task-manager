@@ -18,7 +18,7 @@
     defaultCover: '{{ $defaultCover }}',
     shouldDeleteProfile: {{ $deleteProfileOld === '1' ? 'true' : 'false' }},
     shouldDeleteCover: {{ $deleteCoverOld === '1' ? 'true' : 'false' }},
-
+    showError: true,
     uploadProfile(e) {
         const file = e.target.files[0];
         if (!file) return;
